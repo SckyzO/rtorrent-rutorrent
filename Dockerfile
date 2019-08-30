@@ -17,7 +17,7 @@ ENV UID=1000 \
 
 LABEL Description="rutorrent based on alpine" \
       tags="latest" \
-      maintainer="xataz <https://github.com/xataz>" \
+      maintainer="SckyzO <https://github.com/sckyzo>" \
       mediainfo_version="${MEDIAINFO_VER}" \
       libtorrent_version="${LIBTORRENT_VER}" \
       rtorrent_version="${RTORRENT_VER}" \

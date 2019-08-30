@@ -13,8 +13,8 @@ Based on [xataz/rutorrent](https://github.com/xataz/docker-rtorrent-rutorrent) i
 
 
 ## Tag available
-* latest [(Dockerfile)](https://github.com/xataz/docker-rtorrent-rutorrent/Dockerfile)
-* latest-filebot, filebot [(Dockerfile)](https://github.com/xataz/docker-rtorrent-rutorrent/Dockerfile)
+* latest [(Dockerfile)](https://github.com/sckyzo/rtorrent-rutorrent)
+* latest-filebot, filebot [(Dockerfile)](https://github.com/sckyzo/rtorrent-rutorrent)
 
 ## Description
 What is [RuTorrent](https://github.com/Novik/ruTorrent) ?
