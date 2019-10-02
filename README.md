@@ -114,7 +114,7 @@ docker run -dt
   -e GID=1001 \
   -v rutorrent-data-volume:/data   \
   -v /docker/config:/config        \
-  sckyzo/rtorrent-rutorrent:filebot
+  sckyzo/rtorrent-rutorrent:latest
 ```
 URI access : http://XX.XX.XX.XX:9080/rutorrent
 
@@ -127,4 +127,3 @@ URI access : http://XX.XX.XX.XX:9080/rutorrent
 Any contributions, are very welcome !
 
 
-# rtorrent-rutorrent
