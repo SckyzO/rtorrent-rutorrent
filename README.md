@@ -29,7 +29,7 @@ rtorrent is the popular Bittorrent client.
 ## BUILD IMAGE
 ### Build arguments
 * BUILD_CORES : Number of cpu's core for compile (default : empty for use all cores)
-* MEDIAINFO_VER : Mediainfo version (default : 19.07)
+* MEDIAINFO_VER : Mediainfo version (default : 19.09)
 * RTORRENT_VER : rtorrent version (default : 0.9.8)
 * LIBTORRENT_VER : libtorrent version (default : 0.13.8)
 
