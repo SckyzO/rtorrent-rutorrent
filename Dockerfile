@@ -22,7 +22,6 @@ LABEL Description="rutorrent based on alpine" \
       libtorrent_version="${LIBTORRENT_VER}" \
       rtorrent_version="${RTORRENT_VER}" \
       libzen_version="${LIBZEN_VER}" \
-      build_ver="201908301701"
 
 RUN export BUILD_DEPS="build-base \
                         libtool \
@@ -36,11 +35,11 @@ RUN export BUILD_DEPS="build-base \
                         libnl3-dev \
                         libsigc++-dev \
                         linux-headers \
-			py-pip" \
+	            		py-pip" \
     ## Download Package
     && if [ "$RTORRENT_VER" == "0.9.6" ]; then CPPUNIT_VER="==1.13.2-r1"; fi \
     && apk upgrade --no-cache \
-    && apk add -X http://dl-cdn.alpinelinux.org/alpine/v3.6/main --no-cache ${BUILD_DEPS} \
+    && apk add -X http://dl-cdn.alpinelinux.org/alpine/v3.10/main --no-cache ${BUILD_DEPS} \
                 ffmpeg \
                 libnl3 \
                 ca-certificates \
@@ -63,9 +62,10 @@ RUN export BUILD_DEPS="build-base \
                 php7-ctype \
                 php7-pear \
                 php7-dev \
-		php7-sockets \
-		php7-phar \
+         		php7-sockets \
+		        php7-phar \
                 libressl \
+                libzen \
                 file \
                 findutils \
                 tar \
@@ -86,18 +86,18 @@ RUN export BUILD_DEPS="build-base \
     && git clone -b ${RTORRENT_VER} https://github.com/rakshasa/rtorrent.git /tmp/rtorrent \
     && wget http://mediaarea.net/download/binary/mediainfo/${MEDIAINFO_VER}/MediaInfo_CLI_${MEDIAINFO_VER}_GNU_FromSource.tar.gz -O /tmp/MediaInfo_CLI_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
     && wget http://mediaarea.net/download/binary/libmediainfo0/${MEDIAINFO_VER}/MediaInfo_DLL_${MEDIAINFO_VER}_GNU_FromSource.tar.gz -O /tmp/MediaInfo_DLL_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
-    && wget http://downloads.sourceforge.net/zenlib/libzen_${LIBZEN_VER}.tar.gz -O /tmp/libzen_${LIBZEN_VER}.tar.gz \
+    #&& wget http://downloads.sourceforge.net/zenlib/libzen_${LIBZEN_VER}.tar.gz -O /tmp/libzen_${LIBZEN_VER}.tar.gz \
     && cd /tmp \
-    && tar xzf libzen_${LIBZEN_VER}.tar.gz \
+    #&& tar xzf libzen_${LIBZEN_VER}.tar.gz \
     && tar xzf MediaInfo_DLL_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
     && tar xzf MediaInfo_CLI_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
     ## Compile ZenLib
-    && cd /tmp/ZenLib/Project/GNU/Library \
-    && ./autogen \
-    && ./configure --prefix=/usr/local \
-                    --enable-shared \
-                    --disable-static \
-    && make && make install \
+    #&& cd /tmp/ZenLib/Project/GNU/Library \
+    #&& ./autogen \
+    #&& ./configure --prefix=/usr/local \
+    #                --enable-shared \
+    #                --disable-static \
+    #&& make && make install \
     ## Compile mktorrent
     && cd /tmp/mktorrent \
     && make -j ${BUILD_CORES-$(grep -c "processor" /proc/cpuinfo)} \
@@ -169,42 +169,8 @@ RUN export BUILD_DEPS="build-base \
     && strip -s /usr/local/bin/rtorrent \
     && strip -s /usr/local/bin/mktorrent \
     && strip -s /usr/local/bin/mediainfo \
-    && apk del -X http://dl-cdn.alpinelinux.org/alpine/v3.6/main --no-cache ${BUILD_DEPS} cppunit-dev \
+    && apk del -X http://dl-cdn.alpinelinux.org/alpine/v3.10/main --no-cache ${BUILD_DEPS} cppunit-dev \
     && rm -rf /tmp/*
-
-ARG WITH_FILEBOT=NO
-ARG FILEBOT_VER=4.7.9
-ARG CHROMAPRINT_VER=1.4.3
-
-ENV filebot_version="${FILEBOT_VER}" \
-      chromaprint_ver="${CHROMAPRINT_VER}"
-
-ENV FILEBOT_RENAME_METHOD="symlink" \
-    FILEBOT_RENAME_MOVIES="{n} ({y})" \
-    FILEBOT_RENAME_SERIES="{n}/Season {s.pad(2)}/{s00e00} - {t}" \
-    FILEBOT_RENAME_ANIMES="{n}/{e.pad(3)} - {t}" \
-    FILEBOT_RENAME_MUSICS="{n}/{fn}" \
-    FILEBOT_LANG="fr" \
-    FILEBOT_CONFLICT=skip
-
-RUN if [ "${WITH_FILEBOT}" == "YES" ]; then \
-        apk add --no-cache openjdk8-jre java-jna-native binutils wget nss \
-        && mkdir /filebot \
-        && cd /filebot \
-        && wget http://downloads.sourceforge.net/project/filebot/filebot/FileBot_${FILEBOT_VER}/FileBot_${FILEBOT_VER}-portable.tar.xz -O /filebot/filebot.tar.xz \
-        && tar xJf filebot.tar.xz \
-        && ln -sf /usr/local/lib/libzen.so.0.0.0 /filebot/lib/x86_64/libzen.so \
-        && ln -sf /usr/local/lib/libmediainfo.so.0.0.0 /filebot/lib/x86_64/libmediainfo.so \
-        && wget https://github.com/acoustid/chromaprint/releases/download/v${CHROMAPRINT_VER}/chromaprint-fpcalc-${CHROMAPRINT_VER}-linux-x86_64.tar.gz \
-        && tar xvf chromaprint-fpcalc-${CHROMAPRINT_VER}-linux-x86_64.tar.gz \
-        && mv chromaprint-fpcalc-${CHROMAPRINT_VER}-linux-x86_64/fpcalc /usr/local/bin \
-        && strip -s /usr/local/bin/fpcalc \
-        && apk del --no-cache binutils wget \
-        && rm -rf /tmp/* \
-                  /filebot/FileBot_${FILEBOT_VER}-portable.tar.xz \
-                  /filebot/chromaprint-fpcalc-${CHROMAPRINT_VER}-linux-x86_64.tar.gz\
-                  /filebot/chromaprint-fpcalc-${CHROMAPRINT_VER}-linux-x86_64 \
-    ;fi
 
 COPY rootfs /
 VOLUME /data /config
