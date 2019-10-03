@@ -21,7 +21,7 @@ LABEL Description="rutorrent based on alpine" \
       mediainfo_version="${MEDIAINFO_VER}" \
       libtorrent_version="${LIBTORRENT_VER}" \
       rtorrent_version="${RTORRENT_VER}" \
-      libzen_version="${LIBZEN_VER}" \
+      libzen_version="${LIBZEN_VER}" 
 
 RUN export BUILD_DEPS="build-base \
                         libtool \
@@ -76,7 +76,7 @@ RUN export BUILD_DEPS="build-base \
                 bash \
                 git \
                 sox \
-		python \
+                python \
                 cppunit-dev${CPPUNIT_VER} \
                 cppunit${CPPUNIT_VER} \
     ## Download Sources
