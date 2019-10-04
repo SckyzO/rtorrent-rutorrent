@@ -162,8 +162,8 @@ RUN export BUILD_DEPS="build-base \
     && cp *.mmdb /var/www/html/torrent/plugins/geoip2/database/ \
     && pecl install geoip-${GEOIP_VER} \
     && chmod +x /usr/lib/php7/modules/geoip.so \
-    ## Install cfscrape
-    && pip install cfscrape \
+    ## Install cloudscraper 
+    && pip install cloudscraper \
     ## cleanup
     && strip -s /usr/local/bin/rtorrent \
     && strip -s /usr/local/bin/mktorrent \
