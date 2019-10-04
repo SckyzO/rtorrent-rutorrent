@@ -35,7 +35,13 @@ RUN export BUILD_DEPS="build-base \
                         libnl3-dev \
                         libsigc++-dev \
                         linux-headers \
-	            		py-pip" \
+	            		py-pip \
+                        gcc \
+                        g++ \
+                        python-dev \
+                        musl-dev \
+                        libffi-dev \
+                        openssl-dev" \
     ## Download Package
     && if [ "$RTORRENT_VER" == "0.9.6" ]; then CPPUNIT_VER="==1.13.2-r1"; fi \
     && apk upgrade --no-cache \
@@ -91,13 +97,6 @@ RUN export BUILD_DEPS="build-base \
     #&& tar xzf libzen_${LIBZEN_VER}.tar.gz \
     && tar xzf MediaInfo_DLL_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
     && tar xzf MediaInfo_CLI_${MEDIAINFO_VER}_GNU_FromSource.tar.gz \
-    ## Compile ZenLib
-    #&& cd /tmp/ZenLib/Project/GNU/Library \
-    #&& ./autogen \
-    #&& ./configure --prefix=/usr/local \
-    #                --enable-shared \
-    #                --disable-static \
-    #&& make && make install \
     ## Compile mktorrent
     && cd /tmp/mktorrent \
     && make -j ${BUILD_CORES-$(grep -c "processor" /proc/cpuinfo)} \

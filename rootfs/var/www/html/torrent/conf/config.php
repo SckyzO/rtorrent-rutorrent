@@ -19,11 +19,14 @@
 	$scgi_host = "127.0.0.1";
 	$XMLRPCMountPoint = "<webroot>RPC";
 	$pathToExternals = array(
-		"php" 	=> '/usr/bin/php7',
-		"curl"	=> '/usr/bin/curl',
-		"gzip"	=> '/usr/bin/gzip',
-		"id"	=> '/usr/bin/id',
-		"stat"	=> '/usr/bin/stat',
+       "php"       => '/usr/bin/php7',
+       "pgrep"     => '/usr/bin/pgrep',
+       "python"    => '/usr/bin/python',
+       "python2.7" => '/usr/bin/python2.7',
+       "curl"      => '/usr/bin/curl',
+       "gzip"      => '/usr/bin/gzip',
+       "id"        => '/usr/bin/id',
+       "stat"      => '/usr/bin/stat',     
 	);
 	$localhosts = array(
 		"127.0.0.1", 
